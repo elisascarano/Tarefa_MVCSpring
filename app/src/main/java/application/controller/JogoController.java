@@ -38,7 +38,7 @@ public class JogoController {
     }
     
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    public String insert(@RequestParam("titulo") String titulo, @RequestParam("multiplayer") Boolean multiplayer, @RequestParam("genero_id") Long genero_id) {
+    public String insert(@RequestParam("titulo") String titulo, @RequestParam("multiplayer") Boolean multiplayer, @RequestParam("genero_id") int genero_id) {
         Optional<Genero> resultado = generosRepo.findById(genero_id);
         if(resultado.isPresent()) {
             Jogo jogo = new Jogo();
@@ -53,7 +53,7 @@ public class JogoController {
     }
 
     @RequestMapping("/update") 
-    public String update(@RequestParam("id") long id, Model ui) {
+    public String update(@RequestParam("id") int id, Model ui) {
         Optional<Jogo> result = jogosRepo.findById(id);
         if(result.isPresent()) {
             ui.addAttribute("jogos", result.get());
@@ -66,7 +66,7 @@ public class JogoController {
 
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String update(@RequestParam("id") Long id, @RequestParam("titulo") String titulo, @RequestParam("multiplayer") Boolean multiplayer, @RequestParam("genero_id") Long genero_id) {
+    public String update(@RequestParam("id") int id, @RequestParam("titulo") String titulo, @RequestParam("multiplayer") Boolean multiplayer, @RequestParam("genero_id") int genero_id) {
         Optional<Jogo> result = jogosRepo.findById(id);
         if(result.isPresent()) {
             Optional<Genero> resultGenero = generosRepo.findById(genero_id);

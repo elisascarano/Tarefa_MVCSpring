@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 public class Jogo {
     
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     private String titulo;
     private Boolean multiplayer;
@@ -22,11 +22,11 @@ public class Jogo {
     @JoinColumn(name = "genero_id", nullable = false)
     private Genero genero;
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

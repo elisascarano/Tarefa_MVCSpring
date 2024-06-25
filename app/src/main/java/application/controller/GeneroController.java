@@ -13,7 +13,7 @@ import application.model.Genero;
 import application.repository.GeneroRepository;
 
 @Controller
-@RequestMapping("/genero")
+@RequestMapping("/generos")
 public class GeneroController {
     @Autowired
     private GeneroRepository generoRepo;
@@ -35,11 +35,12 @@ public class GeneroController {
     @RequestMapping("/list")
     public String list(Model ui) {
         ui.addAttribute("generos", generoRepo.findAll());
+
         return "/genero/list";
     }
 
     @RequestMapping("/update")
-    public String update(@RequestParam("id") long id, Model ui) {
+    public String update(@RequestParam("id") int id, Model ui) {
         Optional<Genero> result = generoRepo.findById(id);
         if(result.isPresent()) {
             ui.addAttribute("genero", result.get());
@@ -50,7 +51,7 @@ public class GeneroController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String update(@RequestParam("id") long id, @RequestParam("nome") String nome) {
+    public String update(@RequestParam("id") int id, @RequestParam("nome") String nome) {
         Optional<Genero> result = generoRepo.findById(id);
         if(result.isPresent()) {
             result.get().setNome(nome);
@@ -61,7 +62,7 @@ public class GeneroController {
     }
 
     @RequestMapping("/delete")
-    public String delete(@RequestParam("id") long id, Model ui) {
+    public String delete(@RequestParam("id") int id, Model ui) {
         Optional<Genero> result = generoRepo.findById(id);
         if(result.isPresent()) {
             ui.addAttribute("genero", result.get());
@@ -72,7 +73,7 @@ public class GeneroController {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public String delete(@RequestParam("id") long id) {
+    public String delete(@RequestParam("id") int id) {
         generoRepo.deleteById(id);
         return "redirect:/generos/list";
     }
